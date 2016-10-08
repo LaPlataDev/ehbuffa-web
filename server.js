@@ -5,8 +5,15 @@ const { get, create, update } = require('./api');
 
 const server = new Hapi.Server();
 
-
-server.connection({ port: 3000 });
+server.connection({ 
+  port: 3000,
+  routes: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with']      
+    }
+  }  
+});
 
 server.register(require('inert'), (err) => {
 

@@ -1,8 +1,25 @@
 
-const { readFile, writeFile } = require('fs');
+const { readFile, writeFile, mkdir } = require('fs');
 const { resolve } = require('path');
 
-const SCHEDULE_FILE = resolve(__dirname, '../.temp', 'SCHEDULES.JSON');  
+const SCHEDULE_FOLDER = resolve(__dirname, '../.temp');
+const SCHEDULE_FILE = resolve(SCHEDULE_FOLDER, 'SCHEDULES.JSON');  
+
+
+const doWrite = (json, reply) => (err) => {
+    if (err) {  
+       return mkdir(SCHEDULE_FOLDER, (err) => {
+            if (err) throw err;
+                writeFile(SCHEDULE_FILE, json, (err) => {
+                    if (err) throw err;
+
+                    reply('success');
+                });
+        });
+    }
+    reply('success');
+} 
+
 
 module.exports = {
 
@@ -32,10 +49,8 @@ module.exports = {
             schedules.push(alarm);
             
             const json = JSON.stringify(schedules);
-            writeFile(SCHEDULE_FILE, json, (err) => {
-                if (err) throw err;
-                reply('success');
-            });            
+            
+            writeFile(SCHEDULE_FILE, json, doWrite(json, reply));            
             
         });
 
@@ -58,10 +73,7 @@ module.exports = {
             schedules[pos] = alarm;
 
             const json = JSON.stringify(schedules);
-            writeFile(SCHEDULE_FILE, json, (err) => {
-                if (err) throw err;
-                reply('success');
-            });
+            writeFile(SCHEDULE_FILE, json, doWrite(json, reply));
 
         });
 
