@@ -1,7 +1,7 @@
 
 
 const Hapi = require('hapi');
-const { scheduleHandler } = require('./api');
+const { get, create, update } = require('./api');
 
 const server = new Hapi.Server();
 
@@ -32,8 +32,21 @@ server.register(require('inert'), (err) => {
     server.route({
       method: 'GET',
       path: '/schedule',
-      handler: scheduleHandler
+      handler: get
     });
+
+    server.route({
+      method: 'POST',
+      path: '/schedule',
+      handler: create
+    });
+
+    server.route({
+      method: 'POST',
+      path: '/schedule/{pos}',
+      handler: update
+    });
+
 
 
   server.start((err) => {
