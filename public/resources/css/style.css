@@ -1,0 +1,25 @@
+.clockInput .clockInput_button {
+  color: green; }
+
+.clockInput .inputContainer {
+  margin-top: 20px; }
+
+.clockInput .glyphicon-certificate.true {
+  color: green; }
+
+.clockInput .glyphicon-certificate.false {
+  color: red; }
+
+.clockInput .alarms {
+  width: calc(100% - 20px);
+  margin: 50px 10px 10px 10px; }
+  .clockInput .alarms .alarm_item {
+    margin-top: 30px; }
+
+.container .jumbotron {
+  margin-top: 10vh; }
+
+.container .logo {
+  margin: 12px;
+  display: block;
+  text-align: center; }
